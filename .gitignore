@@ -1,0 +1,67 @@
+# # Logs
+# logs
+# *.log
+# npm-debug.log*
+# yarn-debug.log*
+# yarn-error.log*
+# pnpm-debug.log*
+# lerna-debug.log*
+
+# node_modules
+# dist
+# dist-ssr
+# *.local
+
+# # Editor directories and files
+# !.vscode/extensions.json
+# .idea
+# .DS_Store
+# *.suo
+# *.ntvs*
+# *.njsproj
+# *.sln
+# *.sw?
+
+
+# pnpm-lock.yaml
+# yarn.lock
+# package-lock.json
+# bun.lockb
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+build/
+.local
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Editor directories and files
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Lockfiles (keep one based on your package manager)
+package-lock.json  
+# yarn.lock          # Uncomment if using yarn
+# pnpm-lock.yaml     # Uncomment if using pnpm
+# bun.lockb          # Uncomment if using bun
