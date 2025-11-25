@@ -15,16 +15,30 @@ export default function UsersPage({ id }: { id: number} ){
     // const [users, setUsers] = useState([]);
     const [users, setUsers] = useState<User | null>(null);
 
+    // useEffect(() => {
+    //     fetch(`${API_BASE}/api/users/${id}`)
+    //         .then(res => res.json())
+    //         .then(data => setUsers(data))
+    //         .catch(err => console.error(err));
+    // }, [id]);
+
+    // if (!users) {
+    //     return <p>Loading...</p>;
+    // }
+
     useEffect(() => {
-        fetch(`${API_BASE}/api/users/${id}`)
-            .then(res => res.json())
-            .then(data => setUsers(data))
-            .catch(err => console.error(err));
+        if (!id) return;
+
+        fetch(`${API_BASE}/api/users/${id}`, {
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        })
+        .then(res => res.json())
+        .then(data => setUsers(data))
+        .catch(err => console.error("Fetch user error:", err));
     }, [id]);
 
-    if (!users) {
-        return <p>Loading...</p>;
-    }
+    if (!users) return <p>Loading...</p>;
 
     return (
 
