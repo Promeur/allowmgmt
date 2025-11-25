@@ -9,13 +9,15 @@ type Allowance = {
   allowance: number;
 };
 
+const API_BASE = import.meta.env.VITE_API_BASE;
+
 export default function Allowance({ user_id, id }: { user_id: number, id: number} ){
 
     // const [users, setUsers] = useState([]);
     const [allowance, setAllowance] = useState<Allowance | null>(null);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/api/allowance/${user_id}/${id}`)
+        fetch(`${API_BASE}/api/allowance/${user_id}/${id}`)
             .then(res => res.json())
             .then(data => setAllowance(data))
             .catch(err => console.error(err));
