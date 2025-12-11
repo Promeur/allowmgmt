@@ -29,7 +29,7 @@ export default function AddAllowance(
         // if(!amount) return;
         if (amount === null || isNaN(amount)) return;
 
-        fetch(`${API_BASE}/${user_id}/${id}/add?amountToAdd=${amount}`, {
+        fetch(`${API_BASE}/api/allowance/${user_id}/${id}/add?amountToAdd=${amount}`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json"
