@@ -16,9 +16,9 @@ export default function DocsPage() {
           </h4>
         </div>
         <div className="">
-          <span className="p-4"><Button >Add Allowance</Button></span>
-          <span className="p-4"><Button>New Purchase</Button></span>
           
+          <span className="p-4"><Button>New Purchase</Button></span>
+          <span className="p-4"><Button >Add Savings</Button></span>
           
         </div>
         <div>
