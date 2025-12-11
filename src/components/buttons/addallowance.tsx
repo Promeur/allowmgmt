@@ -15,6 +15,8 @@ import {
 } from "@heroui/react";
 // import { on } from "events";
 
+const API_BASE = import.meta.env.VITE_API_BASE;
+
 export default function AddAllowance(
     { user_id, id, onUpdated }:{ user_id:number, id: number, onUpdated: () => void }
 ){
@@ -27,7 +29,7 @@ export default function AddAllowance(
         // if(!amount) return;
         if (amount === null || isNaN(amount)) return;
 
-        fetch(`http://localhost:8080/api/allowance/${user_id}/${id}/add?amountToAdd=${amount}`, {
+        fetch(`${API_BASE}/${user_id}/${id}/add?amountToAdd=${amount}`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json"
