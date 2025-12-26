@@ -14,6 +14,8 @@ import {
 //   ModalFooter 
 } from "@heroui/react";
 
+const API_BASE = import.meta.env.VITE_API_BASE;
+
 export default function NewPurchase(
     { 
         user_id, 
@@ -38,7 +40,7 @@ export default function NewPurchase(
 
         setIsSaving(true);
 
-        fetch(`http://localhost:8080/api/purchases/${user_id}/${allowance_id}/new?name=${name}&amount=${amount}`, {
+        fetch(`${API_BASE}/api/purchases/${user_id}/${allowance_id}/new?name=${name}&amount=${amount}`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json"

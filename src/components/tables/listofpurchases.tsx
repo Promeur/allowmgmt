@@ -43,6 +43,8 @@ type Purchase ={
   purchaseDate: string;
 }
 
+const API_BASE = import.meta.env.VITE_API_BASE;
+
 export default function ListOfPurchases({onUpdated}:{onUpdated: () => void}){
 
   const [page, setPage] = useState(1);
@@ -58,7 +60,7 @@ export default function ListOfPurchases({onUpdated}:{onUpdated: () => void}){
   );
 
   const loadPurchases = () => {
-    fetch("http://localhost:8080/api/purchases/1/1")
+    fetch("${API_BASE}/api/purchases/1/1")
       .then(res => res.json())
       .then(data => setPurchases(data))
       .catch(err => console.error(err));
