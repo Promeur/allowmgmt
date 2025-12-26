@@ -60,7 +60,7 @@ export default function ListOfPurchases({onUpdated}:{onUpdated: () => void}){
   );
 
   const loadPurchases = () => {
-    fetch("${API_BASE}/api/purchases/1/1")
+    fetch(`${API_BASE}/api/purchases/1/1`)
       .then(res => res.json())
       .then(data => setPurchases(data))
       .catch(err => console.error(err));
