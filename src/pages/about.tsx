@@ -1,25 +1,41 @@
 import { title } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
-import { Button } from "@heroui/button";
+// import { Button } from "@heroui/button";
 import UsersPage from "./UsersPage";
 // import display from "@/components/allowance/display";
 import Allowance from "@/components/allowance/display";
+import ListOfPurchases from "@/components/tables/listofpurchases";
+// import NewPurchase from "@/components/buttons/newpurchase";
+import { useState } from "react";
 
-export default function DocsPage() {
+export default function AboutPage() {
+
+  const [refeshKey, setRefreshKey] = useState(0);
+
+  const refreshAll = () => {
+    setRefreshKey(prev => prev + 1);
+  }
+
+  // const res = await fetch("http://localhost:8080/api/purchases/1", {
+  //   cache: "no-store",
+  // });
+
+  // const purchases = await res.json();
+
+  
+
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <div className="inline-block max-w-lg text-center justify-center">
           {/* <h1 className={title()}>Allowance</h1> */}
           <h4 className={title()}>
-            <Allowance user_id={1} id={1} />
+            <Allowance user_id={1} id={1} refreshKey={refeshKey} />
           </h4>
         </div>
-        <div className="">
-          
-          <span className="p-4"><Button>New Purchase</Button></span>
-          <span className="p-4"><Button >Add Savings</Button></span>
-          
+        
+        <div className="px-4 ">
+          <ListOfPurchases onUpdated={refreshAll} />
         </div>
         <div>
           <UsersPage id={1}/>

@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { Card, CardBody } from "@heroui/card";
+// import { Button } from "@heroui/button";
+// import ListOfPurchases from "../tables/listofpurchases";
 import AddAllowance from "../buttons/addallowance";
+// import NewPurchase from "../buttons/newpurchase";
+
 // import { div } from "framer-motion/client";
 
 type Allowance = {
@@ -12,7 +16,18 @@ type Allowance = {
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
-export default function Allowance({ user_id, id }: { user_id: number, id: number} ){
+// export default function Allowance({ user_id, id }: { user_id: number, id: number} ){
+export default function Allowance(
+    { 
+        user_id, 
+        id, 
+        refreshKey 
+    }: { 
+        user_id: number, 
+        id: number,
+        refreshKey: number
+    } 
+){
 
     // const [users, setUsers] = useState([]);
     const [allowance, setAllowance] = useState<Allowance | null>(null);
@@ -28,13 +43,15 @@ export default function Allowance({ user_id, id }: { user_id: number, id: number
 
     useEffect(() => {
         loadAllowance();
-    }, [user_id, id]);
+    }, [user_id, id, refreshKey]);
 
     if (!allowance) {
         return <p>Loading...</p>;
     }
 
     return (
+
+        <>
 
         <div className="p-6">
 
@@ -53,9 +70,27 @@ export default function Allowance({ user_id, id }: { user_id: number, id: number
                     </div>
                 {/* ))} */}
 
+
             {/* </div> */}
 
         </div>
+        {/* <div className=""> */}
+          
+          {/* <span className="p-4"> */}
+            {/* <Button>New Purchase</Button> */}
+            {/* <NewPurchase user_id={1} allowance_id={1} onUpdated={loadAllowance}/> */}
+          {/* </span> */}
+          {/* <span className="p-4"><Button >Add Savings</Button></span> */}
+          {/* <br /> */}
+          
+          
+          
+        {/* </div> */}
+        {/* <div className="px-4">
+          <ListOfPurchases />
+        </div> */}
+
+        </>
 
     );
 

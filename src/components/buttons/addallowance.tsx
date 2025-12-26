@@ -5,7 +5,7 @@ import {
 // import { Button } from "@heroui/button";
 // import { Input } from "@heroui/input";
 // import { useDisclosure } from "@heroui/hooks";
-import { Button, Input, useDisclosure } from "@heroui/react";
+import { Button, Input, useDisclosure, Spinner } from "@heroui/react";
 import { 
   Modal,
   ModalContent,
@@ -23,11 +23,15 @@ export default function AddAllowance(
 
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [amount, setAmount] = useState<number | null>(null);
+    const [isSaving, setIsSaving] = useState(false);
 
     const addAmount = () => {
 
         // if(!amount) return;
         if (amount === null || isNaN(amount)) return;
+
+        // fetch(`${API_BASE}/api/allowance/${user_id}/${id}/add?amountToAdd=${amount}`, {
+        setIsSaving(true);
 
         fetch(`${API_BASE}/api/allowance/${user_id}/${id}/add?amountToAdd=${amount}`, {
             method: 'PUT',
@@ -38,10 +42,14 @@ export default function AddAllowance(
             .then(res => res.json())
             .then(() => {
                 setAmount(null);
+                setIsSaving(false);
                 onClose();
                 onUpdated();
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                console.error(err);
+                setIsSaving(false);
+            });
 
     }
     // useEffect(() => {
@@ -59,6 +67,13 @@ export default function AddAllowance(
 
         <>
             <Button onPress={onOpen}>Add</Button>
+
+            {isSaving && (
+                <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[9999]">
+                    <Spinner color="white" size="lg" />
+                </div>
+            )}
+
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalContent>
                     {/* {(onClose) => ( */}
