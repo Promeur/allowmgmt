@@ -3,7 +3,7 @@ import DefaultLayout from "@/layouts/default";
 import { Button } from "@heroui/button";
 import UsersPage from "./UsersPage";
 // import display from "@/components/allowance/display";
-import Allowance from "@/components/allowance/display";
+// import Allowance from "@/components/allowance/display";
 
 export default function DocsPage() {
   return (
@@ -16,7 +16,7 @@ export default function DocsPage() {
         <div className="inline-block max-w-lg text-center justify-center">
           {/* <h1 className={title()}>Allowance</h1> */}
           <h4 className={title()}>
-            <Allowance user_id={1} id={1} />
+            {/* <Allowance user_id={1} id={1} /> */}
           </h4>
         </div>
         <div className="">
