@@ -63,7 +63,7 @@ export default function AddAllowance(
     return (
 
         <>
-            <Button onPress={onOpen}>Add</Button>
+            <Button size="sm" onPress={onOpen}>Add Amount</Button>
 
             {isSaving && (
                 <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[9999]">
