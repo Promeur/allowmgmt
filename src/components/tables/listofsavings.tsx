@@ -44,6 +44,8 @@ type Allowance ={
 //   purchaseDate: string;
 }
 
+const API_BASE = import.meta.env.VITE_API_BASE;
+
 export default function ListOfSavings({onUpdated}:{onUpdated: () => void}){
 
   const [page2, setPage2] = useState(1);
@@ -59,7 +61,7 @@ export default function ListOfSavings({onUpdated}:{onUpdated: () => void}){
   );
 
   const loadAllowance = () => {
-    fetch("http://localhost:8080/api/allowance/1")
+    fetch(`${API_BASE}/api/allowance/1`)
       .then(res => res.json())
       .then(data => setAllowance(data))
       .catch(err => console.error(err));

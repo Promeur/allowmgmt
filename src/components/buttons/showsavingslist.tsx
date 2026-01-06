@@ -21,6 +21,8 @@ import {
 import ListOfSavings from "../tables/listofsavings";
 // import AddAllowance from "./addallowance";
 
+
+
 export default function ShowSavingsList(
     { onUpdated }:{ onUpdated: () => void }
 ){
