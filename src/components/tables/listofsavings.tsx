@@ -7,7 +7,7 @@ import
   useState,
    
 } from "react";
-// import { Button } from "@heroui/button";
+import { Button } from "@heroui/button";
 // import {
 //   Table,
 //   TableHeader,
@@ -32,41 +32,40 @@ import {
   // Button,
   // divider,
 } from "@heroui/react";
-import NewPurchase from "@/components/buttons/newpurchase";
+// import NewPurchase from "@/components/buttons/newpurchase";
+import AddAllowance from "../buttons/addallowance";
+import AddSavings from "../buttons/addsavings";
 
-type Purchase ={
+type Allowance ={
   id: number;
   userId: number;
-  allowanceId: number;
   name: string;
-  amount: number;
-  purchaseDate: string;
+  allowance: number;
+//   purchaseDate: string;
 }
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+export default function ListOfSavings({onUpdated}:{onUpdated: () => void}){
 
-export default function ListOfPurchases({onUpdated}:{onUpdated: () => void}){
+  const [page2, setPage2] = useState(1);
+  const rowsPerPage2 = 5;
 
-  const [page, setPage] = useState(1);
-  const rowsPerPage = 5;
-
-  const [purchases, setPurchases] = useState<Purchase[]>([]);
+  const [allowance, setAllowance] = useState<Allowance[]>([]);
   
-  const totalPages = Math.ceil(purchases.length / rowsPerPage);
+  const totalPages = Math.ceil(allowance.length / rowsPerPage2);
 
-  const paginatedPurchases = purchases.slice(
-    (page - 1) * rowsPerPage,
-    page * rowsPerPage
+  const paginatedAllowance = allowance.slice(
+    (page2 - 1) * rowsPerPage2,
+    page2 * rowsPerPage2
   );
 
-  const loadPurchases = () => {
-    fetch(`${API_BASE}/api/purchases/1/1`)
+  const loadAllowance = () => {
+    fetch("http://localhost:8080/api/allowance/1")
       .then(res => res.json())
-      .then(data => setPurchases(data))
+      .then(data => setAllowance(data))
       .catch(err => console.error(err));
   }
   useEffect(() => {
-        loadPurchases();
+        loadAllowance();
     }, [1, 1, onUpdated]);
 
   // useEffect(() => {
@@ -110,8 +109,8 @@ export default function ListOfPurchases({onUpdated}:{onUpdated: () => void}){
     <>
     <div className="my-4 text-center">
           
-          <span className="p-4">
-            {/* <Button>New Purchase</Button> */}
+          {/* <span className="p-4">
+            
             <NewPurchase 
             user_id={1} 
             allowance_id={1} 
@@ -119,43 +118,54 @@ export default function ListOfPurchases({onUpdated}:{onUpdated: () => void}){
               loadPurchases();
               onUpdated();
             }} />
+          </span> */}
+          <span className="p-4">
+            <AddSavings 
+            user_id={1} 
+            onUpdated={() => {
+              loadAllowance();
+              onUpdated();
+            }} />
           </span>
-          {/* <span className="p-4"><Button >Add Savings</Button></span> */}
-          {/* <br /> */}
           
           
           
-        </div>
-    <Table aria-label="List of Purchases" className="w-full">
+    </div>
+    <Table aria-label="List of Purchases" className="w-full" defaultSelectedKeys={["1"]}
+        selectionMode="single">
       <TableHeader>
-        <TableColumn>Date</TableColumn>
+        {/* <TableColumn>Date</TableColumn> */}
         <TableColumn>Name</TableColumn>
         <TableColumn>Amount</TableColumn>
-        {/* // <TableColumn>Date</TableColumn> */}
+        <TableColumn>Actions</TableColumn>
       </TableHeader>
       <TableBody>
-        {paginatedPurchases.map((p) => (
+        {paginatedAllowance.map((p) => (
           <TableRow key={p.id}>
-            <TableCell>
+            {/* <TableCell>
               <span className="text-sm">
                 {p.purchaseDate
               ? new Date(p.purchaseDate).toLocaleString()
               : "—"}
               </span>
               
-            </TableCell>
+            </TableCell> */}
             <TableCell>{p.name}</TableCell>
-            <TableCell>{p.amount}</TableCell>
-            {/* // <TableCell>{item.purchaseDate}</TableCell> */}
+            <TableCell>{p.allowance}</TableCell>
+            <TableCell>
+                <Button size="sm" color="success">Select Active Savings</Button>
+                <AddAllowance user_id={1} id={p.id} onUpdated={loadAllowance} />
+                {/* <Button size="sm">Add Amount</Button> */}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
     </Table>
     <div className="flex justify-center mt-4">
       <Pagination
-        page={page}
+        page={page2}
         total={totalPages}
-        onChange={setPage}
+        onChange={setPage2}
       />
     </div>
     </>

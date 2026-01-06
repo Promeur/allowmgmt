@@ -3,6 +3,7 @@ import { Card, CardBody } from "@heroui/card";
 // import { Button } from "@heroui/button";
 // import ListOfPurchases from "../tables/listofpurchases";
 import AddAllowance from "../buttons/addallowance";
+import ShowSavingsList from "../buttons/showsavingslist";
 // import NewPurchase from "../buttons/newpurchase";
 
 // import { div } from "framer-motion/client";
@@ -63,13 +64,20 @@ export default function Allowance(
                     <div className="flex gap-4">
                         <Card className="p-4 flex-1">
                             <CardBody>
-                                <p className="font-medium">{allowance.allowance}</p>
+                                <div className="text-center">
+                                    <p className="font-medium">{allowance.allowance}</p>
+                                </div>
                             </CardBody>
                         </Card>
+                        
+                        
+                    </div>
+                    <div className="flex justify-center gap-4 mt-4">
                         <AddAllowance user_id={user_id} id={id} onUpdated={loadAllowance} />
+                        <ShowSavingsList onUpdated={loadAllowance} />
                     </div>
                 {/* ))} */}
-
+                    
 
             {/* </div> */}
 
