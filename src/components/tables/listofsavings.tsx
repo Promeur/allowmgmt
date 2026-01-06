@@ -34,6 +34,7 @@ import {
 } from "@heroui/react";
 // import NewPurchase from "@/components/buttons/newpurchase";
 import AddAllowance from "../buttons/addallowance";
+import AddSavings from "../buttons/addsavings";
 
 type Allowance ={
   id: number;
@@ -118,7 +119,14 @@ export default function ListOfSavings({onUpdated}:{onUpdated: () => void}){
               onUpdated();
             }} />
           </span> */}
-          <span className="p-4"><Button >Add Savings</Button></span>
+          <span className="p-4">
+            <AddSavings 
+            user_id={1} 
+            onUpdated={() => {
+              loadAllowance();
+              onUpdated();
+            }} />
+          </span>
           
           
           
