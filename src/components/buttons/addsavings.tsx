@@ -13,27 +13,26 @@ import {
   ModalBody,
 //   ModalFooter 
 } from "@heroui/react";
-// import { on } from "events";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 
-export default function AddAllowance(
-    { user_id, id, onUpdated }:{ user_id:number, id: number, onUpdated: () => void }
+export default function AddSavings(
+    { user_id, onUpdated }:{ user_id:number, onUpdated: () => void }
 ){
 
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [amount, setAmount] = useState<number | null>(null);
+    const [name, setName] = useState<string>("");
+    const [allowance, setAllowance] = useState<number | null>(null);
     const [isSaving, setIsSaving] = useState(false);
 
-    const addAmount = () => {
+    const addAllowanceAmount = () => {
 
         // if(!amount) return;
-        if (amount === null || isNaN(amount)) return;
+        if (allowance === null || isNaN(allowance)) return;
 
-        // fetch(`${API_BASE}/api/allowance/${user_id}/${id}/add?amountToAdd=${amount}`, {
         setIsSaving(true);
 
-        fetch(`${API_BASE}/api/allowance/${user_id}/${id}/add?amountToAdd=${amount}`, {
+        fetch(`${API_BASE}/api/allowance/${user_id}/new?name=${name}&allowance=${allowance}`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json"
@@ -41,7 +40,7 @@ export default function AddAllowance(
         })
             .then(res => res.json())
             .then(() => {
-                setAmount(null);
+                setAllowance(null);
                 setIsSaving(false);
                 onClose();
                 onUpdated();
@@ -52,21 +51,11 @@ export default function AddAllowance(
             });
 
     }
-    // useEffect(() => {
-
-    //     fetch(`http://localhost:8080/api/allowance/${user_id}/${id}/add?amountToAdd=${amount}`, {
-    //         method: 'PUT',
-    //     })
-    //         .then(res => res.json())
-    //         .then(updated => setAmount(updated.amount))
-    //         // .catch(err => console.error(err));
-
-    // }, [user_id, id, amount]);
 
     return (
 
         <>
-            <Button size="sm" onPress={onOpen}>Add Amount</Button>
+            <Button size="sm" onPress={onOpen}>Add Savings</Button>
 
             {isSaving && (
                 <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[9999]">
@@ -78,19 +67,27 @@ export default function AddAllowance(
                 <ModalContent>
                     {/* {(onClose) => ( */}
                         <>
-                            <ModalHeader>Add Allowance</ModalHeader>
+                            <ModalHeader>New Savings</ModalHeader>
                             <ModalBody>
+                                <Input
+                                    type="string"
+                                    label="Enter Name"
+                                    value={name}
+                                    onChange={
+                                        (e) => setName(e.target.value)
+                                    }
+                                />
                                 <Input 
                                     type="number"
                                     label="Enter Amount"
-                                    value={amount !== null ? amount.toString() : ''}
+                                    value={allowance !== null ? allowance.toString() : ''}
                                     onChange={
-                                        (e) => setAmount(Number(e.target.value))
+                                        (e) => setAllowance(Number(e.target.value))
                                     }
 
                                 />
                                 <Button
-                                onPress={addAmount}>
+                                onPress={addAllowanceAmount}>
                                     Save
                                 </Button>
                             </ModalBody>
@@ -103,4 +100,3 @@ export default function AddAllowance(
     );
 
 }
-
